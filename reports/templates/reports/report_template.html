@@ -1,0 +1,19 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Patient Report</title>
+</head>
+<body>
+    <h1>{{ report.clinic_name }} - Patient Report</h1>
+    <p>Physician: {{ report.physician_name }} ({{ report.physician_contact }})</p>
+    <p>Patient: {{ report.patient_first_name }} {{ report.patient_last_name }}</p>
+    <p>Date of Birth: {{ report.patient_dob }}</p>
+    <p>Contact: {{ report.patient_contact }}</p>
+    <h2>Chief Complaint</h2>
+    <p>{{ report.chief_complaint }}</p>
+    <h2>Consultation Note</h2>
+    <p>{{ report.consultation_note }}</p>
+</body>
+</html>
