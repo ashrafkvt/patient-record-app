@@ -100,7 +100,7 @@
     </style>
 </head>
 <body>
-    <form action="{% url 'patient-report' %}" method="post"  class="form-container">
+    <form action="{% url 'patient-report' %}" enctype="multipart/form-data" method="post"  class="form-container">
         {% csrf_token %}
         
         <div class="form-row">
