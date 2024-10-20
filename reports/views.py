@@ -5,6 +5,7 @@ from django.shortcuts import render
 from django.http import HttpResponse
 from django.template.loader import render_to_string
 from weasyprint import HTML
+from datetime import datetime
 
 from .serializer import PatientReportSerializer
 
@@ -25,14 +26,20 @@ class PatientReportView(APIView):
     def post(self, request):
         # Handle form submission and create patient report
         serializer = PatientReportSerializer(data=request.data)
+
         if serializer.is_valid():
             patient_report = serializer.save()
 
             logo_url = create_presigned_url(
                 patient_report.clinic_logo_key)
+            current_time = datetime.now().strftime('%Y-%m-%d %H:%M:%S')
+            client_ip = request.META.get('REMOTE_ADDR', 'Unknown IP')
             html_string = render_to_string(
                 'reports/report_template.html',
-                {'report': patient_report, 'logo': logo_url})
+                {
+                    'report': patient_report, 'logo_url': logo_url,
+                    'current_time': current_time, 'client_ip': client_ip
+                })
             pdf_file = HTML(string=html_string).write_pdf()
             file_name = self.generate_patient_report_filename(patient_report)
 

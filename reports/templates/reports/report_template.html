@@ -4,8 +4,54 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Patient Report</title>
+    <style>
+        @page {
+            size: A4;
+            margin: 1in;
+            @top-left {
+                content: element(header);
+            }
+            @bottom-center {
+                content: element(footer);
+            }
+        }
+        header {
+            position: running(header);
+            text-align: left;
+            font-size: 12px;
+            padding: 10px;
+            margin: 10px 0px;
+        }
+        .header-logo {
+            max-width: 100%;
+            max-height: 80px;
+        }
+        #footer {
+            position: running(footer);
+            text-align: center;
+            font-size: 10px;
+            margin-top: 20px;
+            border-top: 1px solid #000;
+            padding-top: 5px;
+            width: 100%;
+        }
+        .page-break {
+            page-break-before: always;
+        }
+        .page::before {
+            content: counter(page);
+        }
+    </style>
 </head>
 <body>
+    <header>
+        <img src="{{ logo_url }}" class="header-logo" alt="Logo">
+    </header>
+    <!-- Footer -->
+    <div id="footer">
+        This report is generated on {{ current_time }} from {{ client_ip }} - Page: <span class="page"></span>
+    </div>
+
     <h1>{{ report.clinic_name }} - Patient Report</h1>
     <p>Physician: {{ report.physician_name }} ({{ report.physician_contact }})</p>
     <p>Patient: {{ report.patient_first_name }} {{ report.patient_last_name }}</p>
@@ -15,5 +61,13 @@
     <p>{{ report.chief_complaint }}</p>
     <h2>Consultation Note</h2>
     <p>{{ report.consultation_note }}</p>
+
+    <div class="page-break"></div>
+    <div class="content">
+    </div>
+    <div class="page-break"></div>
+    <div class="content">
+    </div>
+    
 </body>
 </html>

@@ -19,6 +19,17 @@ def s3_client():
     return None
 
 
+def s3_resource():
+    try:
+        s3 = boto3.resource('s3', aws_access_key_id=AWS_ACCESS_KEY_ID,
+                            aws_secret_access_key=AWS_SECRET_ACCESS_KEY,
+                            region_name=AWS_S3_REGION_NAME)
+        return s3
+    except Exception as exception:
+        print(exception)
+    return None
+
+
 def create_presigned_url(object_name):
     s3 = s3_client()
     try:

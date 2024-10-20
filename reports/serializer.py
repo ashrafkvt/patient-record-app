@@ -5,6 +5,7 @@ import re
 from rest_framework import serializers
 from .models import PatientReport
 from django.conf import settings
+from datetime import datetime
 
 from .utils import s3_client
 
@@ -32,9 +33,13 @@ class PatientReportSerializer(serializers.ModelSerializer):
         patient_report = PatientReport.objects.create(**validated_data)
 
         if clinic_logo:
-            # Upload file to S3
+            file_name = clinic_logo.name.rsplit('.', 1)[0]
+            file_ext = clinic_logo.name.rsplit('.', 1)[-1]
+            modified_file_name = file_name + '_' + datetime.now().strftime(
+                "%Y%m%d%H%M%S") + '.' + file_ext
+
             s3 = s3_client()
-            file_key = f'clinic_logos/{clinic_logo.name}'
+            file_key = f'clinic_logos/{modified_file_name}'
             s3.upload_fileobj(
                 clinic_logo.file,
                 settings.AWS_STORAGE_BUCKET_NAME,
