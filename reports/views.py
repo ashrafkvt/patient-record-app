@@ -9,7 +9,7 @@ from datetime import datetime
 
 from .serializer import PatientReportSerializer
 
-from .utils import s3_client, create_presigned_url
+from .utils import create_presigned_url
 
 
 class PatientReportView(APIView):

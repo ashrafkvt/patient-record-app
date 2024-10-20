@@ -19,13 +19,14 @@ class PatientReportSerializer(serializers.ModelSerializer):
 
     def validate_patient_contact(self, value):
         # Check if the value matches a pattern for valid contact numbers
-        if not re.match(r'^\+?1?\d{1,15}$', value):
+        if not re.match(r'^\+?1?\d{6,15}$', value):
             raise serializers.ValidationError("Enter a valid contact number.")
         return value
 
     def validate_physician_contact(self, value):
-        if not re.match(r'^\+?1?\d{1,15}$', value):
-            raise serializers.ValidationError("Enter a valid physician contact number.")
+        if not re.match(r'^\+?1?\d{6,15}$', value):
+            raise serializers.ValidationError(
+                "Enter a valid physician contact number.")
         return value
 
     def create(self, validated_data):
