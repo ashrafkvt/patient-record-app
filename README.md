@@ -10,3 +10,9 @@ This project is a Django-based web application that utilizes Django REST Framewo
   - **EC2**: Hosts the Django application.
   - **RDS**: Manages the database.
   - **S3**: Stores static files, media uploads, and generated PDF documents.
+    
+# Live Demo
+
+The application is hosted at the following URL:
+
+[Visit the Live Application](http://3.110.40.85:8000/)
